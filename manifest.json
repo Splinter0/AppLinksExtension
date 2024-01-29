@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "AppLinks",
+    "version": "1.0.0",
+    "description": "Catches application links and lets you inspect them",
+    "permissions": [
+        "activeTab",
+        "webNavigation",
+        "tabs",
+        "storage"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": "icons/default-icon.png"
+    }
+}

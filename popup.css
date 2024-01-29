@@ -1,0 +1,44 @@
+body {
+    width: 320px;
+    height: 350px;
+    font-family: "Ubuntu", sans-serif;
+    max-width: 300px;
+}
+#content {
+    max-width: 300px;
+    word-wrap: break-word;
+    background-color: rgba(174, 167, 159, 0.5);
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 2px;
+}
+
+#export {
+    background-color: #E95420;
+}
+
+#clear {
+    background-color: #77216F;
+}
+
+.counter {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+}
+
+.action {
+    color: white;
+    width: fit-content;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 5px;
+    flex: 1;
+    text-align: center;
+}
+
+.action:hover {
+    cursor: pointer;
+}
