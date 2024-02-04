@@ -1,6 +1,8 @@
 # AppLinks
 
-When opening an external application link such as `slack://` or `bankid://` Firefox often does not show you the link before opening it, which kinda sucks. Also these links are not saved in the history, making it impossible to track them down if you (for whatever reason need to).
+**Available at the Mozilla Store:** [https://addons.mozilla.org/en-US/firefox/addon/applinks/](https://addons.mozilla.org/en-US/firefox/addon/applinks/)
+
+When opening an external application link such as `slack://` or `bankid://` Firefox often does not show you the link before opening it, which kinda sucks. Also these links are not saved in the history, making it impossible to track them down.
 
 This extension catches all application links, noitfies you that one is about to open and lets you inspect it. Additionally it saves the following data for each link:
 
@@ -13,7 +15,8 @@ and makes it json exportable, to compensate for the lack of a history entry for 
 ## Future improvements
 
 - Block links until they have been inspected and approved (disable auto navigation)
-- Warns you when an suspicious origin attempts at launching a application link
+- Find and blacklist more "non app links"
+- Make mobile version (to compensate for firefox not specifying the origin before opening the link)
 
 ## Contributing
 
