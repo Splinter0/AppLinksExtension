@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    reloadUI();
+});
+
+function reloadUI() {
     browser.runtime.sendMessage({ command: "showLink" })
         .then(response => {
             if (!response.data) {
@@ -9,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         })
         .catch(error => console.error("Error:", error));
-});
+}
 
 function buildAppLinkUI(appLink) {
     const container = document.getElementById("content");
@@ -17,13 +21,18 @@ function buildAppLinkUI(appLink) {
     title = document.createElement("h3")
     title.textContent = "Latest:";
     container.appendChild(title);
-    a = document.createElement("a");
+    var a;
+    if (!appLink.url.includes("://")) { // Sometimes for the QR code we don't intercept links, still want to display it though
+        a = document.createElement("u");
+    } else {
+        a = document.createElement("a");
+        a.href = appLink.url;
+    }
     if (appLink.url.length > 233) {
         a.textContent = appLink.url.substring(0, 230) + "...";
     } else {
         a.textContent = appLink.url;
     }
-    a.href = appLink.url;
     container.appendChild(a);
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
@@ -104,3 +113,28 @@ document.getElementById('clear').addEventListener('click', async function() {
     clearUI();
     await browser.runtime.sendMessage({ command: "clearData" });
 });
+
+document.getElementById("qr").addEventListener("click", function () {
+    chrome.tabs.captureVisibleTab(null, {}, function (imageString) {
+        var canvasElement = document.getElementById("screenshot");
+        var canvas = canvasElement.getContext("2d");
+        var img = new Image();
+        img.src = imageString;
+        img.onload = function() {
+            canvasElement.width = img.width;
+            canvasElement.height = img.height;
+            canvas.drawImage(img, 0, 0);
+
+            var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+            var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: "dontInvert",
+            });
+            if (code) {
+                console.log(code.data);
+                browser.runtime.sendMessage({ command: "handleQrLink", data: code.data }).then((r) => reloadUI());
+            } else {
+                setMessage("Could not find QR code in page")
+            }
+        };
+    });
+})

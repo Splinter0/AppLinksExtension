@@ -21,6 +21,10 @@ body {
     background-color: #77216F;
 }
 
+#qr {
+    background-color: black;
+}
+
 .counter {
     text-align: center;
 }

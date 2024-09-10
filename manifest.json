@@ -1,13 +1,14 @@
 {
     "manifest_version": 2,
     "name": "AppLinks",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Catches application links and lets you inspect them",
     "permissions": [
         "activeTab",
         "webNavigation",
         "tabs",
-        "storage"
+        "storage",
+        "<all_urls>"
     ],
     "background": {
         "scripts": ["background.js"]

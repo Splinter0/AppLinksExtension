@@ -10,7 +10,9 @@ const ignoreProtocols = [
     "blob:",
     "ws://",
     "wss://",
-    "about:"
+    "about:",
+    "view-source:",
+    "chrome:"
 ];
 
 class AppLink {
@@ -69,6 +71,10 @@ browser.webNavigation.onBeforeNavigate.addListener(async (details) =>  {
         return;
     }
 
+    await registerLink(details.url)
+});
+
+async function registerLink(url) {
     try {
         prev = (await browser.storage.local.get("previous")).previous;
     } catch (e) {
@@ -76,13 +82,13 @@ browser.webNavigation.onBeforeNavigate.addListener(async (details) =>  {
         prev = "manual";
     }
 
-    appLink = new AppLink(details.url, prev);
+    appLink = new AppLink(url, prev);
     storeAppLink(appLink);
     browser.browserAction.setIcon({
         path: "icons/default-icon-active.png"
     });
     browser.browserAction.setBadgeBackgroundColor({ color: '#77216F' });
-});
+}
 
 function handleRequest(request, sender, sendResponse) {
     console.log(request, sender);
@@ -118,6 +124,10 @@ function handleRequest(request, sender, sendResponse) {
                 path: "icons/default-icon.png"
             });
             browser.browserAction.setBadgeText({ text: '' });
+            return true;
+        case "handleQrLink":
+            registerLink(request.data);
+            sendResponse({data: null})
             return true;
         default:
             return false;

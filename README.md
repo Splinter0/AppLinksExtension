@@ -12,12 +12,6 @@ This extension catches all application links, noitfies you that one is about to 
 
 and makes it json exportable, to compensate for the lack of a history entry for these types of links.
 
-## Future improvements
-
-- Block links until they have been inspected and approved (disable auto navigation)
-- Find and blacklist more "non app links"
-- Make mobile version (to compensate for firefox not specifying the origin before opening the link)
-
 ## Contributing
 
 Feel free to create PRs and issues with feature requests, bugs, security concerts and more!
