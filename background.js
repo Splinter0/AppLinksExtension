@@ -12,7 +12,8 @@ const ignoreProtocols = [
     "wss://",
     "about:",
     "view-source:",
-    "chrome:"
+    "chrome:",
+    "moz-extension://"
 ];
 
 class AppLink {
